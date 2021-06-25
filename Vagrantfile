@@ -33,15 +33,15 @@ config.vm.define "node1" do |node1|
   node1.vm.provider "virtualbox" do |node1|
     node1.memory = "1024"
 
-    unless File.exist?(file_to_disk1)
-      node1.customize ['createhd', '--filename', file_to_disk1, '--variant', 'Fixed', '--size', 2 * 1024]
-      node1.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata', '--portcount', 2]
-      node1.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk1]
-      end
+#    unless File.exist?(file_to_disk1)
+#      node1.customize ['createhd', '--filename', file_to_disk1, '--variant', 'Fixed', '--size', 2 * 1024]
+#      node1.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata', '--portcount', 2]
+#      node1.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk1]
+#      end
   end
-  
+
     node1.vm.provision "shell", inline: <<-SHELL
-    yes| sudo mkfs.ext4 /dev/sdb
+#    yes| sudo mkfs.ext4 /dev/sdb
     SHELL
     node1.vm.synced_folder ".", "/vagrant"
  end
@@ -56,14 +56,14 @@ config.vm.define "node2" do |node2|
     node2.memory = "1024"
 
     unless File.exist?(file_to_disk2)
-      node2.customize ['createhd', '--filename', file_to_disk2, '--variant', 'Fixed', '--size', 2 * 1024]
+      node2.customize ['createhd', '--filename', file_to_disk2, '--variant', 'Fixed', '--size', 1 * 1024]
       node2.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata', '--portcount', 2]
       node2.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk2]
       end
  end
- 
+
     node2.vm.provision "shell", inline: <<-SHELL
-    yes| sudo mkfs.ext4 /dev/sdb
+  #  yes| sudo mkfs.ext4 /dev/sdb
     SHELL
     node2.vm.synced_folder ".", "/vagrant"
 end
@@ -78,14 +78,14 @@ config.vm.define "node3" do |node3|
     node3.memory = "512"
 
    unless File.exist?(file_to_disk3)
-      node3.customize ['createhd', '--filename', file_to_disk3, '--variant', 'Fixed', '--size', 2 * 1024]
+      node3.customize ['createhd', '--filename', file_to_disk3, '--variant', 'Fixed', '--size', 1 * 1024]
       node3.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata', '--portcount', 2]
       node3.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk3]
       end
   end
-  
+
     node3.vm.provision "shell", inline: <<-SHELL
-    yes| sudo mkfs.ext4 /dev/sdb
+  #  yes| sudo mkfs.ext4 /dev/sdb
     SHELL
     node3.vm.synced_folder ".", "/vagrant"
 end
@@ -105,9 +105,9 @@ config.vm.define "node4" do |node4|
       node4.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk4]
       end
   end
-  
+
     node4.vm.provision "shell", inline: <<-SHELL
-    yes| sudo mkfs.ext4 /dev/sdb
+  #  yes| sudo mkfs.ext4 /dev/sdb
     SHELL
     node4.vm.synced_folder ".", "/vagrant"
 end
